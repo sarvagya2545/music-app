@@ -34,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const GlassContainer = styled.div`
-
     background: linear-gradient(
         to right bottom, var(--color-white-opaque), var(--color-white-lite)
     );
@@ -43,9 +42,33 @@ export const GlassContainer = styled.div`
     border: 1px solid var(--color-white-lite);
     
     position: relative;
-    backdrop-filter: blur(50px);
     height: ${({ height }) => height || 'fit-content'};
     width: ${({ width }) => width || 'fit-content'};
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(50px);
+`;
+
+export const CustomScrollBar = styled.div`
+    & * {
+        ::-webkit-scrollbar {
+            width: .3rem;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background-color: ${COLORS.white(0.4)};
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: ${COLORS.white(1)};
+            display: block;
+            width: .5rem;
+        }
+    }
 `;
 
 export default GlobalStyle;
