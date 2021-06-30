@@ -1,12 +1,14 @@
-import GlobalStyle, { Container } from './styles/globalStyles';
+import GlobalStyle, { MainContainer, GlassContainer } from './styles/globalStyles';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Container>
-        App init
-      </Container>
+      <MainContainer>
+        <GlassContainer>
+          Container
+        </GlassContainer>
+      </MainContainer>
     </>
   );
 }
