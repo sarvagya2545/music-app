@@ -13,6 +13,8 @@ const GlobalStyle = createGlobalStyle`
 
         --color-primary-1: ${COLORS.primary1};
         --color-primary-2: ${COLORS.primary2};
+        --color-primary-3: ${COLORS.primary3};
+
         --color-white-lite: ${COLORS.white(0.2)};
         --color-white-opaque: ${COLORS.white(0.8)};
 
@@ -35,6 +37,25 @@ export const MainContainer = styled.div`
     height: 100vh;
     width: 100vw;
     background: linear-gradient(to top left, var(--color-primary-1), var(--color-primary-2));
+    position: relative;
+    overflow: hidden;
+    background-position: 50% 50%;
+
+    &::before {
+        --size: 90rem;
+        --offset: 30rem;
+
+        content: '';
+        position: absolute;
+        height: var(--size);
+        width: var(--size);
+        bottom: calc(-1 * var(--offset));
+        right: calc(-1 * var(--offset));
+
+        background: linear-gradient(to top left, var(--color-primary-3) 40%, var(--color-primary-2) 85%);
+        filter: blur(20px);
+        border-radius: 50%;
+    }
 `;
 
 export const GlassContainer = styled.div`

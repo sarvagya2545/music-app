@@ -5,7 +5,14 @@ const App = () => {
     <>
       <GlobalStyle />
       <MainContainer>
-        <Bubble/>
+        <Bubble
+          bottom="10rem"
+          left="-3rem"
+        />
+        <Bubble
+          right="-3rem"
+          top="2rem"
+        />
         <GlassContainer>
           Container
         </GlassContainer>
