@@ -1,9 +1,9 @@
 import React from 'react';
-import { Bubble, MainContainer } from '../../styles/globalStyles';
+import { Bubble, MainContainer } from './Background.elements';
 
 const Background = ({ children }) => {
     return (
-        <MainContainer>
+      <MainContainer>
         <Bubble
           bottom="10rem"
           left="-3rem"
