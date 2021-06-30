@@ -1,13 +1,14 @@
 import GlobalStyle from './styles/globalStyles';
-import { Background as MainWrapper, MusicCard, PlayList } from './components';
+import { Background as MainWrapper, MusicCard, PlayList, Player } from './components';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
       <MainWrapper>
-        <PlayList/>
-        <MusicCard />
+        {/* <PlayList/>
+        <MusicCard /> */}
+      <Player/>
       </MainWrapper>
     </>
   );
