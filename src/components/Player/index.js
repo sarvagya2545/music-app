@@ -5,7 +5,7 @@ import { FaPlay, FaPause, FaFastForward, FaFastBackward } from 'react-icons/fa';
 
 const Player = () => {
     return (
-        <GlassContainer padding="1rem 3rem" width="80rem">
+        <GlassContainer padding="1rem 3rem" width="100%" style={{ gridArea: 'player' }}>
             <PlayerControls>
                 <ControlIcon>
                     <FaFastBackward />

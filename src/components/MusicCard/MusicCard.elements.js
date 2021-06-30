@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const MusicCardImage = styled.img`
-    --size: 30rem;
+    --size: 35rem;
 
     width: var(--size);
     height: var(--size);
+    object-fit: cover;
 
     border-radius: 20px;
     border: 1px solid white;

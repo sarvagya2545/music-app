@@ -27,6 +27,10 @@ export const MainContainer = styled.div`
     overflow: hidden;
     background-position: 50% 50%;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &::before {
         --size: 90rem;
         --offset: 30rem;

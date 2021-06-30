@@ -71,4 +71,17 @@ export const CustomScrollBar = styled.div`
     }
 `;
 
+export const AppLayout = styled.div`
+    display: grid;
+    width: max-content;
+    place-content: center;
+    align-items: stretch;
+    gap: 10px;
+
+    grid-template-areas: 
+        'current playlist'
+        'player player'
+    ;
+`;
+
 export default GlobalStyle;

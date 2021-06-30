@@ -1,4 +1,4 @@
-import GlobalStyle from './styles/globalStyles';
+import GlobalStyle, { AppLayout, GridWide } from './styles/globalStyles';
 import { Background as MainWrapper, MusicCard, PlayList, Player } from './components';
 
 const App = () => {
@@ -6,9 +6,11 @@ const App = () => {
     <>
       <GlobalStyle />
       <MainWrapper>
-        {/* <PlayList/>
-        <MusicCard /> */}
-      <Player/>
+        <AppLayout>
+          <MusicCard/>
+          <PlayList/>
+          <Player/>
+        </AppLayout>
       </MainWrapper>
     </>
   );

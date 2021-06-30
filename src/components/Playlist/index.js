@@ -10,7 +10,7 @@ const PlayList = () => {
                 <PlaylistBody>
                     {([1,2,3,4,5,6,7,8]).map((val) => (
                         <PlaylistItem key={val}>
-                            <PlaylistImg src="https://picsum.photos/200" alt="random img" />
+                            <PlaylistImg src="https://picsum.photos/1200/400" alt="random img" />
                             <PlaylistSongName>
                                 Song Name
                             </PlaylistSongName>
