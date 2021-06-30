@@ -31,3 +31,11 @@ export const AudioTrack = styled.input.attrs({
     };
     cursor: pointer;
 `;
+
+export const Time = styled.p`
+    color: ${COLORS.white()}
+`;
+
+export const TotalTime = styled.span`
+    color: ${COLORS.timer}
+`;
