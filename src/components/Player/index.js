@@ -17,6 +17,22 @@ const Player = () => {
         setTrackLength(audioRef.current.duration);
     })
 
+    const startTimer = () => {
+        clearInterval(intervalRef.current);
+
+        intervalRef.current = setInterval(() => {
+            if (audioRef.current.ended) {
+                // toNextTrack();
+                clearInterval(intervalRef.current);
+                setIsPlaying(false);
+                // console.log('Ended');
+            } else {
+                setCurrentTrack(audioRef.current.currentTime);
+                // console.log(audioRef.current.currentTime);
+            }
+        }, 1000);
+    }
+
     useEffect(() => {
         if(audioRef) {
             if(isPlaying) {
@@ -27,17 +43,7 @@ const Player = () => {
                     .catch(err => console.log(err))
                 ;
 
-                intervalRef.current = setInterval(() => {
-                    if (audioRef.current.ended) {
-                        // toNextTrack();
-                        clearInterval(intervalRef.current);
-                        // console.log('Ended');
-                    } else {
-                        setCurrentTrack(audioRef.current.currentTime);
-                        // console.log(audioRef.current.currentTime);
-                    }
-                }, 1000);
-
+                startTimer();
             } else {
                 audioRef.current.pause()
                 clearInterval(intervalRef.current);
@@ -54,6 +60,19 @@ const Player = () => {
     }
 
     const togglePlay = () => setIsPlaying(s => !s);
+    
+    const onScrub = (e) => {
+        clearInterval(intervalRef.current);
+        audioRef.current.currentTime = e.target.value;
+        setCurrentTrack(e.target.value);
+    }
+
+    const onScrubEnd = () => {
+        if(!isPlaying) {
+            setIsPlaying(true)
+        }
+        startTimer();
+    }
 
     return (
         <GlassContainer padding="1rem 3rem" width="100%" style={{ gridArea: 'player' }}>
@@ -68,7 +87,7 @@ const Player = () => {
                     <FaFastForward />
                 </ControlIcon>
             </PlayerControls>
-            <AudioTrack progress={currentTrack / trackLength * 100} value={currentTrack} min="0" max={trackLength}/>
+            <AudioTrack progress={currentTrack / trackLength * 100} value={currentTrack} min="0" max={trackLength} onChange={onScrub} onMouseUp={onScrubEnd} onKeyUp={onScrubEnd}/>
             <Time>{convertTime(currentTrack)}<TotalTime> / {convertTime(trackLength)}</TotalTime></Time>
         </GlassContainer>
     );
