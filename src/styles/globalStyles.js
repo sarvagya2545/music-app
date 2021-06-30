@@ -38,12 +38,37 @@ export const MainContainer = styled.div`
 `;
 
 export const GlassContainer = styled.div`
+
     background: linear-gradient(
         to right bottom, var(--color-white-opaque), var(--color-white-lite)
     );
     padding: ${({ padding }) => padding || '3rem'};
     border-radius: 30px;
     border: 1px solid var(--color-white-lite);
+    
+    position: relative;
+    backdrop-filter: blur(50px);
+    height: ${({ height }) => height || 'fit-content'};
+    width: ${({ width }) => width || 'fit-content'};
+`;
+
+export const Bubble = styled.div`
+    /* linear gradient */
+    background: linear-gradient(
+        to bottom, var(--color-white-opaque), var(--color-white-lite)
+    );
+
+    /* size related */
+    width: ${({ size }) => size || '250px'};
+    height: ${({ size }) => size || '250px'};
+    border-radius: 50%;
+
+    /* Position related props */
+    position: absolute;
+    top: ${({ top }) => top || 'none'};
+    bottom: ${({ bottom }) => bottom || 'none'};
+    left: ${({ left }) => left || 'none'};
+    right: ${({ right }) => right || 'none'};
 `;
 
 export default GlobalStyle;
