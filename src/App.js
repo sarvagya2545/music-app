@@ -1,5 +1,5 @@
 import GlobalStyle from './styles/globalStyles';
-import { Background as MainWrapper, PlayList } from './components';
+import { Background as MainWrapper, MusicCard, PlayList } from './components';
 
 const App = () => {
   return (
@@ -7,6 +7,7 @@ const App = () => {
       <GlobalStyle />
       <MainWrapper>
         <PlayList/>
+        <MusicCard />
       </MainWrapper>
     </>
   );
