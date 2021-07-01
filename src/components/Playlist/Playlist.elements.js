@@ -46,5 +46,6 @@ export const PlaylistItem = styled.li`
 
     &:hover {
         cursor: pointer;
+        background: ${COLORS.white(0.3)};
     }
 `;
