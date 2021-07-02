@@ -45,7 +45,7 @@ const Player = () => {
 
         intervalRef.current = setInterval(() => {
             if (audioRef.current.ended) {
-                dispatch(nextTrack());
+                next();
                 clearInterval(intervalRef.current);
                 setIsPlaying(false);
                 // console.log('Ended');
