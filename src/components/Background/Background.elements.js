@@ -46,4 +46,14 @@ export const MainContainer = styled.div`
         filter: blur(20px);
         border-radius: 50%;
     }
+
+    @media screen and (max-width: 60rem) {
+        overflow-y: auto;
+        height: auto;
+        padding: 2rem 0;
+
+        &::before {
+            display: none;
+        }
+    }
 `;

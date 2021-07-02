@@ -46,13 +46,16 @@ export const GlassContainer = styled.div`
     width: ${({ width }) => width || 'fit-content'};
     
     display: flex;
-    flex-direction: column;
+    flex-direction: ${({ dir }) => dir || 'column'};
     justify-content: center;
     align-items: center;
 
     backdrop-filter: blur(15px);
     max-height: 45rem;
-    overflow: scroll;
+
+    @media screen and (max-width: 60rem) {
+        width: 100%;
+    }
 `;
 
 export const CustomScrollBar = styled.div`
@@ -84,6 +87,14 @@ export const AppLayout = styled.div`
         'current playlist'
         'player player'
     ;
+
+    @media screen and (max-width: 60rem) {
+        grid-template-areas: 
+            'current'
+            'player'
+            'playlist'
+        ;
+    }
 `;
 
 export default GlobalStyle;

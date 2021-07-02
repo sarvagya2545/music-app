@@ -30,7 +30,9 @@ const Player = () => {
             setTrackLength(audioRef.current.duration);
         })
         setIsPlaying(true);
-        audioRef.current.play();
+        (async () => {
+            await audioRef.current.play();
+        })()
         setCurrentTrack(0);
 
         return () => {
