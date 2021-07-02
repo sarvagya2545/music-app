@@ -18,6 +18,7 @@ export const PlaylistImg = styled.img`
     height: 5rem;
     width: 5rem;
     border-radius: 8px;
+    object-fit: cover;
 `;
 
 export const PlaylistSongName = styled.p`
@@ -32,7 +33,7 @@ export const PlaylistSongLength = styled.p`
     font-weight: bold;
 `;
 
-export const PlaylistItem = styled.li`
+export const PlaylistItemContainer = styled.li`
     padding: 1rem;
     margin-right: 1.5rem;
 
