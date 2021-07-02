@@ -5,16 +5,22 @@ import { FaPlay, FaPause, FaFastForward, FaFastBackward } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 const Player = () => {
+    // audio src selected from the state
     const audioSrc = useSelector(
         ({ tracks: { track, currentTrackIndex } }) => track.byId[track.ids[currentTrackIndex]]?.src
     );
+
+    // audio ref used to change the audio
     const audioRef = useRef(audioSrc ? new Audio(audioSrc) : null);
+    // interval ref used to control the timer component
     const intervalRef = useRef();
 
+    // state of the player
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrack, setCurrentTrack] = useState(0);
     const [trackLength, setTrackLength] = useState(100);
 
+    // change audio when track changed
     useEffect(() => {
         audioRef.current = new Audio(audioSrc);
         audioRef.current?.addEventListener('loadedmetadata', e => {
@@ -22,6 +28,7 @@ const Player = () => {
         })
     }, [audioSrc]);
 
+    // start timer 
     const startTimer = () => {
         clearInterval(intervalRef.current);
 
@@ -38,6 +45,7 @@ const Player = () => {
         }, 1000);
     }
 
+    // pause/play logic
     useEffect(() => {
         if(audioRef.current) {
             if(isPlaying) {
@@ -56,6 +64,7 @@ const Player = () => {
         };
     }, [isPlaying]);
 
+    // show time in correct format
     const convertTime = (seconds) => {
         return `${Math.floor(seconds / 60)}:${
             Math.ceil(seconds % 60).toLocaleString('en-US', {
@@ -64,14 +73,17 @@ const Player = () => {
         }`;
     }
 
+    // toggle play/pause
     const togglePlay = () => setIsPlaying(s => !s);
     
+    // when user is sliding the slider
     const onScrub = (e) => {
         clearInterval(intervalRef.current);
         audioRef.current.currentTime = e.target.value;
         setCurrentTrack(e.target.value);
     }
 
+    // when user stops sliding the slider
     const onScrubEnd = () => {
         if(!isPlaying) {
             setIsPlaying(true)
@@ -92,7 +104,13 @@ const Player = () => {
                     <FaFastForward />
                 </ControlIcon>
             </PlayerControls>
-            <AudioTrack progress={currentTrack / trackLength * 100} value={currentTrack} min="0" max={trackLength} onChange={onScrub} onMouseUp={onScrubEnd} onKeyUp={onScrubEnd}/>
+            <AudioTrack 
+                progress={currentTrack / trackLength * 100}
+                value={currentTrack} min="0" max={trackLength}
+                onChange={onScrub}
+                onMouseUp={onScrubEnd}
+                onKeyUp={onScrubEnd}
+            />
             <Time>{convertTime(currentTrack)}<TotalTime> / {convertTime(trackLength)}</TotalTime></Time>
         </GlassContainer>
     );
