@@ -10,7 +10,6 @@ const Player = () => {
     const audioSrc = useSelector(
         ({ tracks: { track, currentTrackIndex } }) => track.byId[track.ids[currentTrackIndex]]?.src
     );
-    const currentTrackIndex = useSelector(state => state.tracks.currentTrackIndex);
     const dispatch = useDispatch();
 
     // audio ref used to change the audio
@@ -22,24 +21,41 @@ const Player = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrack, setCurrentTrack] = useState(0);
     const [trackLength, setTrackLength] = useState(100);
+    const [firstInteraction, setFirstInteraction] = useState(false);
 
-    // change audio when track changed
+
+    useEffect(() => {
+        if(isPlaying) {
+            audioRef.current.play()
+                .then(() => {
+                    startTimer();
+                })
+                .catch(err => console.log(err));
+        } else {
+            audioRef.current?.pause();
+        }
+    }, [isPlaying])
+
     useEffect(() => {
         audioRef.current = new Audio(audioSrc);
-        audioRef.current?.addEventListener('loadedmetadata', e => {
+        audioRef.current.addEventListener('loadedmetadata', (e) => {
             setTrackLength(audioRef.current.duration);
         })
-        setIsPlaying(true);
-        (async () => {
-            await audioRef.current.play();
-        })()
         setCurrentTrack(0);
+
+        if(isPlaying) {
+            audioRef.current.play()
+                .then(() => {
+                    startTimer();
+                })
+                .catch(err => console.log(err));
+        }
 
         return () => {
             audioRef.current.pause();
-            setIsPlaying(false);
         }
-    }, [audioSrc, currentTrackIndex]);
+    }, [audioSrc]);
+
 
     // start timer 
     const startTimer = () => {
@@ -49,7 +65,6 @@ const Player = () => {
             if (audioRef.current.ended) {
                 next();
                 clearInterval(intervalRef.current);
-                setIsPlaying(false);
                 // console.log('Ended');
             } else {
                 setCurrentTrack(audioRef.current.currentTime);
@@ -58,36 +73,32 @@ const Player = () => {
         }, 1000);
     }
 
-    // pause/play logic
-    useEffect(() => {
-        if(audioRef.current) {
-            if(isPlaying) {
-                audioRef.current.play()
-                    .then(_ => {
-                        console.log('Player started');
-                    })
-                    .catch(err => console.log(err))
-                ;
-
-                startTimer();
-            } else {
-                audioRef.current.pause()
-                clearInterval(intervalRef.current);
-            }
-        };
-    }, [isPlaying]);
-
     // show time in correct format
     const convertTime = (seconds) => {
         return `${Math.floor(seconds / 60)}:${
-            Math.ceil(seconds % 60).toLocaleString('en-US', {
+            (Math.ceil(seconds % 60)).toLocaleString('en-US', {
                 minimumIntegerDigits: 2
             })
         }`;
     }
 
     // toggle play/pause
-    const togglePlay = () => setIsPlaying(s => !s);
+    const togglePlay = () => {
+        if(isPlaying) {
+            audioRef.current.pause();
+            clearInterval(intervalRef.current);
+        } else {
+            audioRef.current.play()
+                .then(_ => {
+                    console.log('Player started');
+                })
+                .catch(err => console.log(err))
+            ;
+            startTimer();
+        }
+
+        setIsPlaying(s => !s);
+    }
     
     // when user is sliding the slider
     const onScrub = (e) => {
@@ -107,14 +118,12 @@ const Player = () => {
     // previous and next tracks
     const prev = () => {
         audioRef.current.pause();
-        setIsPlaying(false);
         setCurrentTrack(0);
         dispatch(prevTrack());
     }
 
     const next = () => {
         audioRef.current.pause();
-        setIsPlaying(false);
         setCurrentTrack(0);
         dispatch(nextTrack());
     }
