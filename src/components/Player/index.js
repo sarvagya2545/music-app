@@ -75,11 +75,8 @@ const Player = () => {
 
     // show time in correct format
     const convertTime = (seconds) => {
-        return `${Math.floor(seconds / 60)}:${
-            (Math.ceil(seconds % 60)).toLocaleString('en-US', {
-                minimumIntegerDigits: 2
-            })
-        }`;
+        let secondsUnit = Math.ceil(seconds) % 60;
+        return `${Math.floor(Math.ceil(seconds) / 60)}:${Math.floor(secondsUnit / 10) === 0 ? '0' : ''}${secondsUnit}`;
     }
 
     // toggle play/pause
