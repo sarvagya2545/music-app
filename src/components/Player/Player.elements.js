@@ -37,13 +37,12 @@ export const AudioTrack = styled.input.attrs({
         transition: all 0.2s;
         --size: 10px;
         &:hover {
-            --size: 20px;
+            transform: scale(2);
         }
 
         width: var(--size);
         height: var(--size);
         border-radius: 50%;
-        transform: translateX(-50%);
         background-color: ${COLORS.timer};
         box-shadow: 0px 0px 4px ${COLORS.timer};
     }

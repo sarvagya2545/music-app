@@ -16,7 +16,7 @@ const PlayList = () => {
 
     return (
         <GlassContainer padding="1.5rem 3rem 3rem">
-            <PlaylistHeading>Playing next:</PlaylistHeading>
+            <PlaylistHeading>Songs List</PlaylistHeading>
             <CustomScrollBar>
                 <PlaylistBody>
                     {tracksList.map((id) => (

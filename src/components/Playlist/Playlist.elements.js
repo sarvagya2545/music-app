@@ -40,7 +40,9 @@ export const PlaylistItemContainer = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: ${({ isCurrent }) => isCurrent ? `${COLORS.white(0.2)}` : `inherit`};
+    background: ${({ isCurrent }) => isCurrent ? `${COLORS.white(0.8)}` : `inherit`};
+    color: ${({ isCurrent }) => isCurrent ? `${COLORS.timer}` : `inherit`};
+    position: relative;
 
     &:not(:last-of-type) {
         border-bottom: 1px solid ${COLORS.white(0.5)};
@@ -49,5 +51,16 @@ export const PlaylistItemContainer = styled.li`
     &:hover {
         cursor: pointer;
         background: ${COLORS.white(0.3)};
+    }
+
+    &::before {
+        content: '';
+        display: ${({ isCurrent }) => isCurrent ? 'block' : 'none'};
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background-color: ${COLORS.timer};
     }
 `;
