@@ -30,6 +30,23 @@ export const AudioTrack = styled.input.attrs({
         `linear-gradient(to right, ${COLORS.white(1)} ${progress}%, ${COLORS.white(0.4)} ${progress}%)`
     };
     cursor: pointer;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+
+        transition: all 0.2s;
+        --size: 10px;
+        &:hover {
+            --size: 20px;
+        }
+
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        background-color: ${COLORS.timer};
+        box-shadow: 0px 0px 4px ${COLORS.timer};
+    }
 `;
 
 export const Time = styled.p`

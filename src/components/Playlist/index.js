@@ -7,6 +7,7 @@ import { trackChanged } from '../../redux/trackSlice';
 
 const PlayList = () => {
     const tracksList = useSelector(state => state.tracks.track.ids);
+    const currentTrackId = useSelector(state => state.tracks.track.ids[state.tracks.currentTrackIndex]);
     const dispatch = useDispatch();
 
     const setTrack = (id) => {
@@ -19,7 +20,7 @@ const PlayList = () => {
             <CustomScrollBar>
                 <PlaylistBody>
                     {tracksList.map((id) => (
-                        <PlayListItem id={id} key={id} onClick={() => setTrack(id)}/>
+                        <PlayListItem id={id} key={id} onClick={() => setTrack(id)} isCurrent={currentTrackId === id}/>
                     ))}
                 </PlaylistBody>
             </CustomScrollBar>

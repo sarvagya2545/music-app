@@ -40,6 +40,7 @@ export const PlaylistItemContainer = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: ${({ isCurrent }) => isCurrent ? `${COLORS.white(0.2)}` : `inherit`};
 
     &:not(:last-of-type) {
         border-bottom: 1px solid ${COLORS.white(0.5)};
