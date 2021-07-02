@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    currentTrackIndex: null,
+    currentTrackIndex: 0,
     track: {
         byId: {},
         ids: []

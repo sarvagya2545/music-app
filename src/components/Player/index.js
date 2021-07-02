@@ -2,20 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GlassContainer } from '../../styles/globalStyles';
 import { PlayerControls, ControlIcon, AudioTrack, Time, TotalTime } from './Player.elements';
 import { FaPlay, FaPause, FaFastForward, FaFastBackward } from 'react-icons/fa';
-
-const audioSrc = '/music/Bring Me To Life - Evanescence (Cover by Jonathan Young).m4a';
+import { useSelector } from 'react-redux';
 
 const Player = () => {
-    const audioRef = useRef(new Audio(audioSrc));
+    const audioSrc = useSelector(
+        ({ tracks: { track, currentTrackIndex } }) => track.byId[track.ids[currentTrackIndex]]?.src
+    );
+    const audioRef = useRef(audioSrc ? new Audio(audioSrc) : null);
     const intervalRef = useRef();
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrack, setCurrentTrack] = useState(0);
     const [trackLength, setTrackLength] = useState(100);
 
-    audioRef.current.addEventListener('loadedmetadata', e => {
-        setTrackLength(audioRef.current.duration);
-    })
+    useEffect(() => {
+        audioRef.current = new Audio(audioSrc);
+        audioRef.current?.addEventListener('loadedmetadata', e => {
+            setTrackLength(audioRef.current.duration);
+        })
+    }, [audioSrc]);
 
     const startTimer = () => {
         clearInterval(intervalRef.current);
@@ -34,7 +39,7 @@ const Player = () => {
     }
 
     useEffect(() => {
-        if(audioRef) {
+        if(audioRef.current) {
             if(isPlaying) {
                 audioRef.current.play()
                     .then(_ => {
