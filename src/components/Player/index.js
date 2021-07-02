@@ -2,16 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GlassContainer } from '../../styles/globalStyles';
 import { PlayerControls, ControlIcon, AudioTrack, Time, TotalTime } from './Player.elements';
 import { FaPlay, FaPause, FaFastForward, FaFastBackward } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { nextTrack, prevTrack } from '../../redux/trackSlice';
 
 const Player = () => {
     // audio src selected from the state
     const audioSrc = useSelector(
         ({ tracks: { track, currentTrackIndex } }) => track.byId[track.ids[currentTrackIndex]]?.src
     );
+    const currentTrackIndex = useSelector(state => state.tracks.currentTrackIndex);
+    const dispatch = useDispatch();
 
     // audio ref used to change the audio
-    const audioRef = useRef(audioSrc ? new Audio(audioSrc) : null);
+    const audioRef = useRef();
     // interval ref used to control the timer component
     const intervalRef = useRef();
 
@@ -26,7 +29,15 @@ const Player = () => {
         audioRef.current?.addEventListener('loadedmetadata', e => {
             setTrackLength(audioRef.current.duration);
         })
-    }, [audioSrc]);
+        setIsPlaying(true);
+        audioRef.current.play();
+        setCurrentTrack(0);
+
+        return () => {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        }
+    }, [audioSrc, currentTrackIndex]);
 
     // start timer 
     const startTimer = () => {
@@ -34,7 +45,7 @@ const Player = () => {
 
         intervalRef.current = setInterval(() => {
             if (audioRef.current.ended) {
-                // toNextTrack();
+                dispatch(nextTrack());
                 clearInterval(intervalRef.current);
                 setIsPlaying(false);
                 // console.log('Ended');
@@ -91,16 +102,31 @@ const Player = () => {
         startTimer();
     }
 
+    // previous and next tracks
+    const prev = () => {
+        audioRef.current.pause();
+        setIsPlaying(false);
+        setCurrentTrack(0);
+        dispatch(prevTrack());
+    }
+
+    const next = () => {
+        audioRef.current.pause();
+        setIsPlaying(false);
+        setCurrentTrack(0);
+        dispatch(nextTrack());
+    }
+
     return (
         <GlassContainer padding="1rem 3rem" width="100%" style={{ gridArea: 'player' }}>
             <PlayerControls>
-                <ControlIcon>
+                <ControlIcon onClick={prev}>
                     <FaFastBackward />
                 </ControlIcon>
                 <ControlIcon onClick={togglePlay}>
                     {!isPlaying ? <FaPlay /> : <FaPause />}
                 </ControlIcon>
-                <ControlIcon>
+                <ControlIcon onClick={next}>
                     <FaFastForward />
                 </ControlIcon>
             </PlayerControls>

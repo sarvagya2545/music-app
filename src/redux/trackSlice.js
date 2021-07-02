@@ -22,7 +22,7 @@ const trackSlice = createSlice({
             state.currentTrackIndex = state.track.ids.indexOf(action.payload);
         },
         trackStopped(state, action) {
-            state.currentTrack = null;
+            state.currentTrackIndex = null;
         },
         nextTrack(state) {
             state.currentTrackIndex = (state.currentTrackIndex + 1) % state.track.ids.length;
@@ -34,6 +34,6 @@ const trackSlice = createSlice({
     }
 })
 
-export const { tracksLoaded, trackChanged, trackStopped } = trackSlice.actions;
+export const { tracksLoaded, trackChanged, trackStopped, nextTrack, prevTrack } = trackSlice.actions;
 
 export default trackSlice.reducer;
