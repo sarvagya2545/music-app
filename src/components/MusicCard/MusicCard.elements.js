@@ -7,7 +7,7 @@ export const MusicCardImage = styled.img`
     height: var(--size);
     object-fit: cover;
 
-    border-radius: 20px;
+    border-radius: 8px;
     border: 1px solid white;
 `;
 

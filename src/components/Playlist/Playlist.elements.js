@@ -17,7 +17,7 @@ export const PlaylistBody = styled.ul`
 export const PlaylistImg = styled.img`
     height: 5rem;
     width: 5rem;
-    border-radius: 8px;
+    border-radius: 4px;
     object-fit: cover;
 `;
 

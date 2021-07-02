@@ -38,7 +38,7 @@ export const GlassContainer = styled.div`
         to right bottom, var(--color-white-opaque), var(--color-white-lite)
     );
     padding: ${({ padding }) => padding || '3rem'};
-    border-radius: 30px;
+    border-radius: 20px;
     border: 1px solid var(--color-white-lite);
     
     position: relative;
@@ -50,7 +50,9 @@ export const GlassContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(15px);
+    max-height: 45rem;
+    overflow: scroll;
 `;
 
 export const CustomScrollBar = styled.div`
