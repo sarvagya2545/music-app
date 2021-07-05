@@ -2,6 +2,8 @@
 
 Music Player Application made with React.
 
+Hosted At: [https://sarvagya2545.github.io/music-app/](https://sarvagya2545.github.io/music-app/)
+
 Technologies used: 
 
 - React
